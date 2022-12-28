@@ -9,33 +9,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
-import java.util.Map;
+import java.util.Set;
 
 @WebServlet(value = "/cars")
 public class CarsServlet extends HttpServlet {
+
+    CarsService service = new CarsService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addDateCooke(resp);
 
         ServletOutputStream outputStream = resp.getOutputStream();
-        Map<String, Car> container = CarsContainer.getContainer();
-        container.forEach((key, value) -> {
-            try {
-                outputStream.println(key + " " + value);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
         String id = req.getParameter("id");
-        if (container.containsKey(id)) {
-            Car car = container.get(id);
-            outputStream.println(car + " has id = " + id);
+        Car car = service.getById(id).orElse(null);
+
+        if (car == null) {
+            Set<String> keys = service.getContainer().keySet();
+            for (String key : keys) {
+                outputStream.println(key + " " + service.getContainer().get(key));
+            }
         } else {
-            outputStream.print("There is no a car with this id");
+            outputStream.println(id + " " + car);
         }
+
         outputStream.close();
-        resp.sendRedirect("https://www.google.com/");
+
     }
 
     private static void addDateCooke(HttpServletResponse resp) {
@@ -53,12 +52,15 @@ public class CarsServlet extends HttpServlet {
 
         String model = req.getParameter("model");
         String color = req.getParameter("color");
-        Map<String, Car> container = CarsContainer.getContainer();
-        Car newCar = new Car(model, color);
-        String id = CarsContainer.getNextId();
-        container.put(id, newCar);
+
+        Car car = service.createCar(model, color);
+
         ServletOutputStream outputStream = resp.getOutputStream();
-        outputStream.print(newCar + " has been added");
+
+        String id = service.getId();
+        service.getContainer().put(id, car);
+        outputStream.println(id + " " + car.toString());
+
         outputStream.close();
 
     }
@@ -70,18 +72,16 @@ public class CarsServlet extends HttpServlet {
 
         String id = req.getParameter("id");
 
-        Map<String, Car> container = CarsContainer.getContainer();
         ServletOutputStream outputStream = resp.getOutputStream();
 
-        if (container.containsKey(id)) {
-            String newColor = req.getParameter("color");
-            Car car = container.get(id);
-            String oldColor = car.getColor();
-            car.setColor(newColor);
-            outputStream.print("The color of the " + car.getModel() + " has been changed from " + oldColor + " to " + newColor);
-        } else {
-            outputStream.print("There is no a car with this id");
+        Car car = service.getById(id).orElse(null);
+
+        if (car != null) {
+            String color = req.getParameter("color");
+            car.setColor(color);
+            outputStream.println(id + " " + car + " has its color changed to " + color);
         }
+
         outputStream.close();
     }
 
@@ -91,16 +91,17 @@ public class CarsServlet extends HttpServlet {
         addDateCooke(resp);
 
         String id = req.getParameter("id");
-        Map<String, Car> container = CarsContainer.getContainer();
         ServletOutputStream outputStream = resp.getOutputStream();
 
-        if (container.containsKey(id)) {
-            Car car = container.get(id);
-            outputStream.print(car + " has been removed");
-            container.remove(id);
+        Car car = service.getById(id).orElse(null);
+
+        if (car == null) {
+            outputStream.println("There is no such car");
         } else {
-            outputStream.print("There is no a car with this id");
+            outputStream.println(id + " " + car + " has been removed");
+            service.getContainer().remove(id);
         }
+
         outputStream.close();
     }
 }

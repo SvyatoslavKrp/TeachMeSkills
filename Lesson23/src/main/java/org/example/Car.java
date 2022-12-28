@@ -19,11 +19,4 @@ public class Car {
         return this.model + " " + this.color;
     }
 
-    public String getColor() {
-        return this.color;
-    }
-
-    public String getModel() {
-        return this.model;
-    }
 }
