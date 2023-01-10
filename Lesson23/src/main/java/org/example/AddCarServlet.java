@@ -27,7 +27,7 @@ public class AddCarServlet extends HttpServlet {
         String brand = req.getParameter("brand");
         String color = req.getParameter("color");
 
-        Car car = carService.createCar(id, brand, color);
+        Car car = new Car(id, brand, color);
 
         carService.add(car);
 

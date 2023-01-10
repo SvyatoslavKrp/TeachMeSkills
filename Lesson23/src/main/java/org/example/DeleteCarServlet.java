@@ -8,7 +8,7 @@ import java.util.List;
 
 @WebServlet(name = "DeleteCarServlet", value = "/delete")
 public class DeleteCarServlet extends HttpServlet {
-    private CarsServiceImpl carService = new CarsServiceImpl();
+    private final CarsService carService = new CarsServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

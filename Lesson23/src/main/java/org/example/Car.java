@@ -1,18 +1,19 @@
 package org.example;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class Car {
 
     private String id;
     private String brand;
-    private String color;
-
-    public Car() {
-    }
+    private String color = "a color hasn't been entered";
 
     public Car(String id, String brand, String color) {
         this.id = id;
         this.brand = brand;
-        this.color = color;
+        if (!StringUtils.isBlank(color)) {
+            this.color = color;
+        }
     }
 
     public String getId() {
@@ -27,12 +28,7 @@ public class Car {
         return brand;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
     public String getColor() {
         return color;
     }
-
 }
