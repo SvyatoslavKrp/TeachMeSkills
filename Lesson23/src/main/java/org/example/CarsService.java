@@ -1,37 +1,19 @@
 package org.example;
 
-import java.util.*;
+import java.util.List;
 
-public class CarsService {
-    private Map<String, Car> container = new HashMap<>() {{
-        put(getId(), new Car("opel", "white"));
-        put(getId(), new Car("mazda", "grey"));
-        put(getId(), new Car("bmw", "black"));
-        put(getId(), new Car("jmc", "red"));
-        put(getId(), new Car("fiat", "green"));
-    }};
+public interface CarsService {
 
-    public String getId() {
-        UUID uuid = UUID.randomUUID();
-        return uuid.toString();
-    }
+    Car createCar(String id, String brand, String color);
 
-    public Optional<Car> getById(String id) {
-        return Optional.ofNullable(container.get(id));
-    }
+    List<Car> getList();
 
-    public Map<String, Car> getContainer() {
-        if (container.size() != 0) {
-            return container;
-        } else {
-            throw new RuntimeException("The garage is empty");
-        }
-    }
+    String generateId();
 
-    public Car createCar(String model, String color) {
+    Car getById(String id);
 
-        if (model == null) throw new RuntimeException("The model of a car hasn't been typed in");
+    void delete(String id);
 
-        return new Car(model, Objects.requireNonNullElse(color, ""));
-    }
+    void repaintCar(String id, String newColor);
+
 }
