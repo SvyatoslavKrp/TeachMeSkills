@@ -22,7 +22,12 @@ public class CarsServiceImpl implements CarsService {
                 String id = resultSet.getString("id");
                 String brand = resultSet.getString("brand");
                 String color = resultSet.getString("color");
-                Car car = new Car(id, brand, color);
+                Car car;
+                if (StringUtils.isBlank(color)) {
+                    car = new Car(id, brand);
+                } else {
+                    car = new Car(id, brand, color);
+                }
                 list.add(car);
             }
         } catch (SQLException e) {

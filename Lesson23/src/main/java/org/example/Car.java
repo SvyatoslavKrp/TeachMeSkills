@@ -8,12 +8,15 @@ public class Car {
     private String brand;
     private String color = "a color hasn't been entered";
 
+    public Car(String id, String brand) {
+        this.id = id;
+        this.brand = brand;
+    }
+
     public Car(String id, String brand, String color) {
         this.id = id;
         this.brand = brand;
-        if (!StringUtils.isBlank(color)) {
-            this.color = color;
-        }
+        this.color = color;
     }
 
     public String getId() {
