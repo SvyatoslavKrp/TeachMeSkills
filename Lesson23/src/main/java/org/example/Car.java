@@ -1,7 +1,5 @@
 package org.example;
 
-import org.apache.commons.lang3.StringUtils;
-
 public class Car {
 
     private String id;
