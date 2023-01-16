@@ -4,9 +4,11 @@ public class Car {
 
     private String id;
     private String brand;
-    private String color;
+    private String color = "a color hasn't been entered";
 
-    public Car() {
+    public Car(String id, String brand) {
+        this.id = id;
+        this.brand = brand;
     }
 
     public Car(String id, String brand, String color) {
@@ -27,12 +29,7 @@ public class Car {
         return brand;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
     public String getColor() {
         return color;
     }
-
 }

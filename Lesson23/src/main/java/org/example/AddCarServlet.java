@@ -1,5 +1,7 @@
 package org.example;
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +29,12 @@ public class AddCarServlet extends HttpServlet {
         String brand = req.getParameter("brand");
         String color = req.getParameter("color");
 
-        Car car = carService.createCar(id, brand, color);
+        Car car;
+        if (StringUtils.isBlank(color)) {
+            car = new Car(id, brand);
+        } else {
+            car = new Car(id, brand, color);
+        }
 
         carService.add(car);
 

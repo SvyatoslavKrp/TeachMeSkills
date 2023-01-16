@@ -1,5 +1,7 @@
 package org.example;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,15 +9,7 @@ import java.util.UUID;
 
 public class CarsServiceImpl implements CarsService {
 
-    private StartupServlet startupServlet = new StartupServlet();
-
-    @Override
-    public Car createCar(String id, String brand, String color) {
-        if ("".equals(color)) {
-            color = "a color hasn't been entered";
-        }
-        return new Car(id, brand, color);
-    }
+    private final StartupServlet startupServlet = new StartupServlet();
 
     @Override
     public List<Car> getList() {
@@ -28,7 +22,12 @@ public class CarsServiceImpl implements CarsService {
                 String id = resultSet.getString("id");
                 String brand = resultSet.getString("brand");
                 String color = resultSet.getString("color");
-                Car car = createCar(id, brand, color);
+                Car car;
+                if (StringUtils.isBlank(color)) {
+                    car = new Car(id, brand);
+                } else {
+                    car = new Car(id, brand, color);
+                }
                 list.add(car);
             }
         } catch (SQLException e) {
@@ -99,7 +98,7 @@ public class CarsServiceImpl implements CarsService {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE cars " +
                     "SET color = ? " +
                     "WHERE id = ?");
-            if ("".equals(newColor)) {
+            if (StringUtils.isBlank(newColor)) {
                 newColor = "a color hasn't been entered";
             }
             preparedStatement.setString(1, newColor);

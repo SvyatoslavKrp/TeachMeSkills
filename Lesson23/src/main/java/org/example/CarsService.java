@@ -4,8 +4,6 @@ import java.util.List;
 
 public interface CarsService {
 
-    Car createCar(String id, String brand, String color);
-
     List<Car> getList();
 
     String generateId();
