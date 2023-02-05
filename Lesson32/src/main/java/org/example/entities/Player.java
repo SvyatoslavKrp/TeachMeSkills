@@ -4,16 +4,21 @@ import lombok.Getter;
 import lombok.Setter;
 import org.example.entities.exceptions.IllegalBetException;
 import org.example.services.Bookmaker;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 @Setter
 @Getter
+@Component
 public class Player {
 
+    @Value("100")
     private int money;
     private Bookmaker bookmaker;
 
-    public Player(int money, Bookmaker bookmaker) {
-        this.money = money;
+    @Autowired
+    public Player(Bookmaker bookmaker) {
         this.bookmaker = bookmaker;
     }
 

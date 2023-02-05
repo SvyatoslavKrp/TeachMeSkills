@@ -7,13 +7,16 @@ import org.example.services.Bookmaker;
 import org.example.services.Hippodrome;
 import org.example.services.impl.BookmakerImpl;
 import org.example.services.impl.HippodromeImpl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
     public static void main(String[] args) {
 
-        AbstractApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+//        AbstractApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext("org.example");
 
         Pair pair1 = context.getBean("pair1", Pair.class);
         Pair pair2 = context.getBean("pair2", Pair.class);
@@ -27,20 +30,24 @@ public class Main {
 //        hippodrome.participantsRegistration(pair1, pair2, pair3);
         while (player.getMoney() > 0) {
             try {
+
                 player.placeBet(pair2);
 
-                hippodrome.getRaceInfo();
-                hippodrome.startRace();
-                hippodrome.showResults();
-
-                player.getResult(bookmaker.payOff());
-
-                System.out.println("you have " + player.getMoney() + " money");
             } catch (IllegalBetException e) {
                 System.out.println("you have no enough money");
                 break;
             }
+
+            hippodrome.getRaceInfo();
+            hippodrome.startRace();
+            hippodrome.showResults();
+
+            player.getResult(bookmaker.payOff());
+
+            System.out.println("you have " + player.getMoney() + " money");
         }
+
+
         context.close();
     }
 }
