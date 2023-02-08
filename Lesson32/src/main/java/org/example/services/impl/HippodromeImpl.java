@@ -36,9 +36,6 @@ public class HippodromeImpl implements Hippodrome {
     @Override
     public void startRace() {
 
-        participants.replaceAll(((pair, aDouble) -> 0.));
-
-
         System.out.println("========================");
         System.out.println("the race is beginning");
 
@@ -67,19 +64,15 @@ public class HippodromeImpl implements Hippodrome {
     @Override
     public void getRaceInfo() {
         participants.keySet()
+                .stream()
+                .peek(pair -> pair.setChosen(false))
                 .forEach(System.out::println);
     }
 
     @Override
     public void showResults() {
-        participants = participants.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue())
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        Map.Entry::getValue,
-                        (oldValue, newValue) -> oldValue,
-                        LinkedHashMap::new));
+
+        sortList();
 
         int place = 1;
         for (Pair pair : participants.keySet()) {
@@ -90,6 +83,17 @@ public class HippodromeImpl implements Hippodrome {
             }
             place++;
         }
+    }
+
+    private void sortList() {
+        participants = participants.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue,
+                        LinkedHashMap::new));
     }
 
 }

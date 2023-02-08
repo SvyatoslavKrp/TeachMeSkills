@@ -2,8 +2,6 @@ package org.example.entities;
 
 import lombok.Getter;
 
-import java.util.Objects;
-
 @Getter
 public class Pair {
 
@@ -11,10 +9,13 @@ public class Pair {
     private Rider rider;
     private double speed;
     private boolean isChosen;
+    private String pairName;
 
     public Pair(Horse horse, Rider rider) {
         this.horse = horse;
         this.rider = rider;
+
+        pairName = rider.getName() + " and " + horse.getName();
 
         double horseSpeed = horse.getSpeed();
         double riderWeight = rider.getWeight();
@@ -28,8 +29,8 @@ public class Pair {
         String riderName = rider.getName();
 
         return isChosen ?
-                riderName + " is performing on " + horseName + " (your choice)" :
-                riderName + " is performing on " + horseName;
+                riderName + " is performing on " + horseName + " (your choice) (" + pairName + ")" :
+                riderName + " is performing on " + horseName + " (" + pairName + ")" ;
     }
 
     public void setChosen(boolean isChosen) {

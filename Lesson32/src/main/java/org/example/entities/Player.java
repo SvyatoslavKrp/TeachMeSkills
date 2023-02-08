@@ -3,6 +3,7 @@ package org.example.entities;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.entities.exceptions.IllegalBetException;
+import org.example.entities.exceptions.NoSuchPairException;
 import org.example.services.Bookmaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,11 +23,13 @@ public class Player {
         this.bookmaker = bookmaker;
     }
 
-    //можно ли разбивать валидацию ставки? Делать часть у player и часть - у bookmaker
-    public void placeBet(Pair pair) throws IllegalBetException {
+    public void placeBet() throws IllegalBetException, NoSuchPairException {
 
-        int bet = bookmaker.acceptBet(pair);
-        if (bet > money) {
+        int bet = 0;
+
+        bet = bookmaker.acceptBet();
+
+        if (bet > money || bet < 1) {
             throw new IllegalBetException();
         }
         money -= bet;

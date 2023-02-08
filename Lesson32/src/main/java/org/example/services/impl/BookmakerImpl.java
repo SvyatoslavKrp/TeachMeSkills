@@ -1,6 +1,7 @@
 package org.example.services.impl;
 
 import org.example.entities.Pair;
+import org.example.entities.exceptions.NoSuchPairException;
 import org.example.services.Bookmaker;
 import org.example.services.Hippodrome;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class BookmakerImpl implements Bookmaker {
     }
 
     @Override
-    public int acceptBet(Pair betPair) {
+    public int acceptBet() throws NoSuchPairException {
 
         System.out.println("type in your bet");
         int bet = 0;
@@ -46,27 +47,27 @@ public class BookmakerImpl implements Bookmaker {
                         throw new RuntimeException();
                     }
                     bet = Integer.parseInt(line);
-                    if (bet < 1) {
-                        throw new NumberFormatException();
-                    }
                     break;
                 } catch (NumberFormatException e) {
                     System.out.println("retype in your bet");
                     line = reader.readLine();
                 }
             }
+            System.out.println("Select your pair");
+            String betPair = reader.readLine();
+            Map<Pair, Double> participants = hippodrome.getResults();
+            int count = 0;
+            for (Pair pair : participants.keySet()) {
+                if (pair.getPairName().equals(betPair)) {
+                    pair.setChosen(true);
+                    count++;
+                }
+            }
+            if (count < 1) {
+                throw new NoSuchPairException();
+            }
         } catch (IOException e) {
             throw new RuntimeException();
-        }
-
-
-        Map<Pair, Double> participants = hippodrome.getResults();
-
-        for (Pair pair : participants.keySet()) {
-            pair.setChosen(false);
-            if (pair.equals(betPair)) {
-                pair.setChosen(true);
-            }
         }
         return acceptedBet = bet;
     }
