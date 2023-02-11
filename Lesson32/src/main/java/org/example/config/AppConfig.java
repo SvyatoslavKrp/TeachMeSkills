@@ -4,12 +4,16 @@ import org.example.entities.Horse;
 import org.example.entities.Pair;
 import org.example.entities.Rider;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+@ComponentScan(basePackages = {"org.example"})
+@EnableAspectJAutoProxy
 public class AppConfig {
 
     @Bean
