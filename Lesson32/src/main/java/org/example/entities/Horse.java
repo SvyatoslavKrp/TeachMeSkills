@@ -11,11 +11,11 @@ public class Horse {
     private String name;
 
     public Horse(String name) {
-        speed = (Math.random() * (89 - 50)) + 50;
+        speed = (Math.random() * (55 - 50)) + 50;
         this.name = name;
     }
 
     public double horseEndurance() {
-        return (Math.random() * (15 - 1) + 15);
+        return (Math.random() * (20 - 1) + 20);
     }
 }
