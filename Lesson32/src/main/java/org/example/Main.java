@@ -3,6 +3,7 @@ package org.example;
 import org.example.entities.Pair;
 import org.example.entities.Player;
 import org.example.entities.exceptions.IllegalBetException;
+import org.example.entities.exceptions.NoSuchPairException;
 import org.example.services.Bookmaker;
 import org.example.services.Hippodrome;
 import org.example.services.impl.BookmakerImpl;
@@ -29,18 +30,17 @@ public class Main {
         System.out.println("you have " + player.getMoney() + " money");
 //        hippodrome.participantsRegistration(pair1, pair2, pair3);
         while (player.getMoney() > 0) {
+            hippodrome.getRaceInfo();
             try {
 
-                player.placeBet(pair2);
+                player.placeBet();
+                hippodrome.startRace();
+                hippodrome.showResults();
 
-            } catch (IllegalBetException e) {
-                System.out.println("you have no enough money");
-                break;
+            } catch (IllegalBetException | NoSuchPairException e) {
+                System.out.println(e.getMessage());
             }
 
-            hippodrome.getRaceInfo();
-            hippodrome.startRace();
-            hippodrome.showResults();
 
             player.getResult(bookmaker.payOff());
 

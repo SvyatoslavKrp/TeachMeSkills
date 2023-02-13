@@ -16,6 +16,6 @@ public class Horse {
     }
 
     public double horseEndurance() {
-        return (Math.random() * (15 - 1) + 15);
+        return (Math.random() * (20 - 1) + 20);
     }
 }
