@@ -1,10 +1,11 @@
 package org.example.services.impl;
 
+import org.example.aop.Benchmark;
 import org.example.entities.Pair;
 import org.example.services.Hippodrome;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,7 +15,7 @@ public class HippodromeImpl implements Hippodrome {
 
     private static final double LAP_DISTANCE = 400;
     private static final byte countLaps = 5;
-    Map<Pair, Double> participants;
+    private Map<Pair, Double> participants;
 
     @Autowired
     public HippodromeImpl(Map<Pair, Double> participants) {
@@ -33,8 +34,12 @@ public class HippodromeImpl implements Hippodrome {
 //        }
 //    }
 
+
     @Override
+    @Benchmark
     public void startRace() {
+
+        participants.replaceAll((pair, aDouble) -> 0.);
 
         System.out.println("========================");
         System.out.println("the race is beginning");

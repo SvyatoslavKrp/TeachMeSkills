@@ -11,7 +11,7 @@ public class Horse {
     private String name;
 
     public Horse(String name) {
-        speed = (Math.random() * (89 - 50)) + 50;
+        speed = (Math.random() * (55 - 50)) + 50;
         this.name = name;
     }
 
