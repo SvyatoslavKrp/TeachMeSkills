@@ -1,58 +1,58 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+<!--       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"-->
+<!--       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">-->
 
-    <bean class="org.example.entities.Horse" name="Jacqueline">
-        <constructor-arg name="name" value="Jacqueline"></constructor-arg>
-    </bean>
-    <bean class="org.example.entities.Horse" name="Aggressive">
-        <constructor-arg name="name" value="Aggressive"></constructor-arg>
-    </bean>
-    <bean class="org.example.entities.Horse" name="Strong">
-        <constructor-arg name="name" value="Strong"></constructor-arg>
-    </bean>
+<!--    <bean class="org.example.entities.Horse" name="Jacqueline">-->
+<!--        <constructor-arg name="name" value="Jacqueline"></constructor-arg>-->
+<!--    </bean>-->
+<!--    <bean class="org.example.entities.Horse" name="Aggressive">-->
+<!--        <constructor-arg name="name" value="Aggressive"></constructor-arg>-->
+<!--    </bean>-->
+<!--    <bean class="org.example.entities.Horse" name="Strong">-->
+<!--        <constructor-arg name="name" value="Strong"></constructor-arg>-->
+<!--    </bean>-->
 
-    <bean class="org.example.entities.Rider" name="David">
-        <constructor-arg name="name" value="David"></constructor-arg>
-    </bean>
-    <bean class="org.example.entities.Rider" name="John">
-        <constructor-arg name="name" value="John"></constructor-arg>
-    </bean>
-    <bean class="org.example.entities.Rider" name="Lucas">
-        <constructor-arg name="name" value="Lucas"></constructor-arg>
-    </bean>
+<!--    <bean class="org.example.entities.Rider" name="David">-->
+<!--        <constructor-arg name="name" value="David"></constructor-arg>-->
+<!--    </bean>-->
+<!--    <bean class="org.example.entities.Rider" name="John">-->
+<!--        <constructor-arg name="name" value="John"></constructor-arg>-->
+<!--    </bean>-->
+<!--    <bean class="org.example.entities.Rider" name="Lucas">-->
+<!--        <constructor-arg name="name" value="Lucas"></constructor-arg>-->
+<!--    </bean>-->
 
-    <bean class="org.example.entities.Pair" name="pair1">
-        <constructor-arg name="horse" ref="Aggressive"></constructor-arg>
-        <constructor-arg name="rider" ref="David"></constructor-arg>
-    </bean>
-    <bean class="org.example.entities.Pair" name="pair2">
-        <constructor-arg name="horse" ref="Strong"></constructor-arg>
-        <constructor-arg name="rider" ref="John"></constructor-arg>
-    </bean>
-    <bean class="org.example.entities.Pair" name="pair3">
-        <constructor-arg name="horse" ref="Jacqueline"></constructor-arg>
-        <constructor-arg name="rider" ref="Lucas"></constructor-arg>
-    </bean>
+<!--    <bean class="org.example.entities.Pair" name="pair1">-->
+<!--        <constructor-arg name="horse" ref="Aggressive"></constructor-arg>-->
+<!--        <constructor-arg name="rider" ref="David"></constructor-arg>-->
+<!--    </bean>-->
+<!--    <bean class="org.example.entities.Pair" name="pair2">-->
+<!--        <constructor-arg name="horse" ref="Strong"></constructor-arg>-->
+<!--        <constructor-arg name="rider" ref="John"></constructor-arg>-->
+<!--    </bean>-->
+<!--    <bean class="org.example.entities.Pair" name="pair3">-->
+<!--        <constructor-arg name="horse" ref="Jacqueline"></constructor-arg>-->
+<!--        <constructor-arg name="rider" ref="Lucas"></constructor-arg>-->
+<!--    </bean>-->
 
-    <bean class="org.example.entities.Player">
-        <constructor-arg name="money" value="100"></constructor-arg>
-        <constructor-arg name="bookmaker" ref="bookmaker"></constructor-arg>
-    </bean>
+<!--    <bean class="org.example.entities.Player">-->
+<!--        <constructor-arg name="money" value="100"></constructor-arg>-->
+<!--        <constructor-arg name="bookmaker" ref="bookmaker"></constructor-arg>-->
+<!--    </bean>-->
 
-    <bean class="org.example.services.impl.HippodromeImpl" name="hippodromeImpl">
-        <constructor-arg name="participants" ref="participants"></constructor-arg>
-    </bean>
+<!--    <bean class="org.example.services.impl.HippodromeImpl" name="hippodromeImpl">-->
+<!--        <constructor-arg name="participants" ref="participants"></constructor-arg>-->
+<!--    </bean>-->
 
-    <bean class="org.example.services.impl.BookmakerImpl" name="bookmaker" destroy-method="close">
-        <constructor-arg name="hippodrome" ref="hippodromeImpl"></constructor-arg>
-    </bean>
+<!--    <bean class="org.example.services.impl.BookmakerImpl" name="bookmaker" destroy-method="close">-->
+<!--        <constructor-arg name="hippodrome" ref="hippodromeImpl"></constructor-arg>-->
+<!--    </bean>-->
 
-    <util:map id="participants" map-class="java.util.HashMap" key-type="org.example.entities.Pair"
-              value-type="java.lang.Double">
-        <entry key-ref="pair1" value="0"/>
-        <entry key-ref="pair2" value="0"/>
-        <entry key-ref="pair3" value="0"/>
-    </util:map>
-</beans>
+<!--    <util:map id="participants" map-class="java.util.HashMap" key-type="org.example.entities.Pair"-->
+<!--              value-type="java.lang.Double">-->
+<!--        <entry key-ref="pair1" value="0"/>-->
+<!--        <entry key-ref="pair2" value="0"/>-->
+<!--        <entry key-ref="pair3" value="0"/>-->
+<!--    </util:map>-->
+<!--</beans>-->

@@ -2,6 +2,8 @@ package org.example.entities;
 
 import lombok.Getter;
 
+import java.util.Objects;
+
 @Getter
 public class Pair {
 
@@ -33,4 +35,13 @@ public class Pair {
     public void setChosen(boolean isChosen) {
         this.isChosen = isChosen;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pair pair = (Pair) o;
+        return Double.compare(pair.speed, speed) == 0 && horse.equals(pair.horse) && rider.equals(pair.rider);
+    }
+
 }
