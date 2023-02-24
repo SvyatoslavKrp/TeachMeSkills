@@ -1,8 +1,10 @@
 package org.example.entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class Pair {
 
     private Horse horse;
@@ -15,7 +17,7 @@ public class Pair {
         this.horse = horse;
         this.rider = rider;
 
-        pairName = rider.getName() + " and " + horse.getName();
+        pairName = rider.getName() + " is performing on " + horse.getName();
 
         double horseSpeed = horse.getSpeed();
         double riderWeight = rider.getWeight();
@@ -29,8 +31,8 @@ public class Pair {
         String riderName = rider.getName();
 
         return isChosen ?
-                riderName + " is performing on " + horseName + " (your choice) (" + pairName + ")" :
-                riderName + " is performing on " + horseName + " (" + pairName + ")" ;
+                riderName + " is performing on " + horseName + " (your choice)" :
+                riderName + " is performing on " + horseName;
     }
 
     public void setChosen(boolean isChosen) {
