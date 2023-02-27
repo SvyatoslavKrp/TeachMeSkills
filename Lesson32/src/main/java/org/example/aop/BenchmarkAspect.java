@@ -11,7 +11,10 @@ import org.springframework.stereotype.Component;
 public class BenchmarkAspect {
 
     @Pointcut("@annotation(org.example.aop.Benchmark))")
-    public void pointcutForAnnotation(){};
+    public void pointcutForAnnotation() {
+    }
+
+    ;
 
     @Around("pointcutForAnnotation()")
     public void runAdvise(ProceedingJoinPoint joinPoint) {

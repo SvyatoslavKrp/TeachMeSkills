@@ -9,11 +9,12 @@ public interface Hippodrome {
     //    void participantsRegistration(Pair... pairs);
     void startRace();
 
-    void getRaceInfo();
+    void prepareRacing();
 
-    void showResults();
-
-    Map<Pair, Double> getResults();
+    Map<Pair, Double> getParticipants();
 
 
+    void registerPair(Pair pair);
+
+    Map<Pair, Double> getResult();
 }
