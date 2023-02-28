@@ -1,26 +1,27 @@
 package org.example.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
-import java.util.UUID;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Data
 
-@Entity
-@Table(name = "teachers")
+@Entity(name = "teachers")
 public class TeacherEntity {
 
+    public TeacherEntity(String name, Date startTeaching, CourseEntity course) {
+        this.name = name;
+        this.startTeaching = startTeaching;
+        this.course = course;
+    }
+
     @Id
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     private String name;
 
@@ -31,7 +32,6 @@ public class TeacherEntity {
 
 
     public static final class TeacherEntityBuilder {
-        private UUID id;
         private String name;
         private Date startTeaching;
         private CourseEntity course;
@@ -41,11 +41,6 @@ public class TeacherEntity {
 
         public static TeacherEntityBuilder aTeacherEntity() {
             return new TeacherEntityBuilder();
-        }
-
-        public TeacherEntityBuilder withId(UUID id) {
-            this.id = id;
-            return this;
         }
 
         public TeacherEntityBuilder withName(String name) {
@@ -65,7 +60,6 @@ public class TeacherEntity {
 
         public TeacherEntity build() {
             TeacherEntity teacherEntity = new TeacherEntity();
-            teacherEntity.setId(id);
             teacherEntity.setName(name);
             teacherEntity.setStartTeaching(startTeaching);
             teacherEntity.setCourse(course);

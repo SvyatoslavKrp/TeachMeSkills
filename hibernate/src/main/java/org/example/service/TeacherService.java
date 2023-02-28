@@ -3,15 +3,13 @@ package org.example.service;
 import org.example.domain.CourseEntity;
 import org.example.domain.TeacherEntity;
 
-import java.util.UUID;
-
 public interface TeacherService {
     void save(TeacherEntity teacher);
 
-    TeacherEntity getTeacher(UUID id);
+    TeacherEntity getTeacher(Integer id);
 
-    CourseEntity getCourse(UUID id);
+    CourseEntity getCourse(Integer id);
 
-    void deleteTeacher(UUID id);
+    void deleteTeacher(Integer id);
 }
 

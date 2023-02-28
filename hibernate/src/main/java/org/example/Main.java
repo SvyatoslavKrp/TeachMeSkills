@@ -9,7 +9,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Date;
-import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,7 +19,6 @@ public class Main {
 
         CourseEntity course = CourseEntity.CourseEntityBuilder
                 .aCourseEntity()
-                .withId(UUID.randomUUID())
                 .withIsDayCourse(true)
                 .withStructure(new CourseStructure("six month", "three month", "three month"))
                 .withSciencesType(SciencesType.ENGINEERING_AND_TECHNOLOGY)
@@ -28,7 +26,6 @@ public class Main {
 
         TeacherEntity teacher = TeacherEntity.TeacherEntityBuilder
                 .aTeacherEntity()
-                .withId(UUID.randomUUID())
                 .withName("Vasya")
                 .withStartTeaching(new Date())
                 .withCourse(course)
@@ -36,10 +33,10 @@ public class Main {
 
         teacherService.save(teacher);
 
-        UUID id = teacher.getId();
+        Integer id = teacher.getId();
         TeacherEntity desirableTeacher = teacherService.getTeacher(id);
 
-        CourseEntity courseById = teacherService.getCourse(teacher.getCourse().getId());
+        CourseEntity courseById = teacherService.getCourse(id);
 
         teacherService.deleteTeacher(id);
 

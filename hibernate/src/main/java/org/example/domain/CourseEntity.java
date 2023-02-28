@@ -1,36 +1,45 @@
 package org.example.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.UUID;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Data
 
-@Entity
-@Table(name = "courses")
+@Entity(name = "courses")
 public class CourseEntity {
 
     @Id
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Enumerated(EnumType.STRING)
     private SciencesType sciencesType;
     @Embedded
     private CourseStructure structure;
     private boolean isDayCourse;
 
+    public CourseEntity(SciencesType sciencesType, CourseStructure structure, boolean isDayCourse, TeacherEntity teacher) {
+        this.sciencesType = sciencesType;
+        this.structure = structure;
+        this.isDayCourse = isDayCourse;
+        this.teacher = teacher;
+    }
+
     @OneToOne
     @JoinColumn(name = "teacher_id")
     @ToString.Exclude
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private TeacherEntity teacher;
 
 
     public static final class CourseEntityBuilder {
-        private UUID id;
         private SciencesType sciencesType;
         private CourseStructure structure;
         private boolean isDayCourse;
@@ -41,11 +50,6 @@ public class CourseEntity {
 
         public static CourseEntityBuilder aCourseEntity() {
             return new CourseEntityBuilder();
-        }
-
-        public CourseEntityBuilder withId(UUID id) {
-            this.id = id;
-            return this;
         }
 
         public CourseEntityBuilder withSciencesType(SciencesType sciencesType) {
@@ -69,7 +73,7 @@ public class CourseEntity {
         }
 
         public CourseEntity build() {
-            return new CourseEntity(id, sciencesType, structure, isDayCourse, teacher);
+            return new CourseEntity(sciencesType, structure, isDayCourse, teacher);
         }
     }
 }

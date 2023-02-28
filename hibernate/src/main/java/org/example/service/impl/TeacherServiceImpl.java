@@ -9,8 +9,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @RequiredArgsConstructor
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -28,13 +26,14 @@ public class TeacherServiceImpl implements TeacherService {
         session.save(course);
         session.save(teacher);
 
+
         transaction.commit();
         session.close();
 
     }
 
     @Override
-    public TeacherEntity getTeacher(UUID id) {
+    public TeacherEntity getTeacher(Integer id) {
 
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -48,7 +47,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public CourseEntity getCourse(UUID id) {
+    public CourseEntity getCourse(Integer id) {
 
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -62,14 +61,12 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void deleteTeacher(UUID id) {
+    public void deleteTeacher(Integer id) {
 
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        // есть способ удалить проще связанные объекты?
+
         TeacherEntity teacher = session.find(TeacherEntity.class, id);
-        CourseEntity course = session.find(CourseEntity.class, teacher.getCourse().getId());
-        session.delete(course);
         session.delete(teacher);
 
         transaction.commit();
