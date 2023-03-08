@@ -21,6 +21,10 @@ dependencies {
     implementation group: 'org.springframework', name: 'spring-context', version: '5.3.25'
     implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.6.15.Final'
 
+    implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+    implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
+
 }
 
 test {

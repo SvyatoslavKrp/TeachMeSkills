@@ -1,16 +1,20 @@
 package org.example.domain;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Builder
 
 @Entity(name = "courses")
 public class CourseEntity {
@@ -25,55 +29,22 @@ public class CourseEntity {
     private CourseStructure structure;
     private boolean isDayCourse;
 
-    public CourseEntity(SciencesType sciencesType, CourseStructure structure, boolean isDayCourse, TeacherEntity teacher) {
-        this.sciencesType = sciencesType;
-        this.structure = structure;
-        this.isDayCourse = isDayCourse;
-        this.teacher = teacher;
-    }
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "teacher_id")
     @ToString.Exclude
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private TeacherEntity teacher;
 
+    @ToString.Exclude
+    @ManyToMany(mappedBy = "courses", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    private final List<StudentEntity> students = new ArrayList<>();
 
-    public static final class CourseEntityBuilder {
-        private SciencesType sciencesType;
-        private CourseStructure structure;
-        private boolean isDayCourse;
-        private TeacherEntity teacher;
-
-        private CourseEntityBuilder() {
-        }
-
-        public static CourseEntityBuilder aCourseEntity() {
-            return new CourseEntityBuilder();
-        }
-
-        public CourseEntityBuilder withSciencesType(SciencesType sciencesType) {
-            this.sciencesType = sciencesType;
-            return this;
-        }
-
-        public CourseEntityBuilder withStructure(CourseStructure structure) {
-            this.structure = structure;
-            return this;
-        }
-
-        public CourseEntityBuilder withIsDayCourse(boolean isDayCourse) {
-            this.isDayCourse = isDayCourse;
-            return this;
-        }
-
-        public CourseEntityBuilder withTeacher(TeacherEntity teacher) {
-            this.teacher = teacher;
-            return this;
-        }
-
-        public CourseEntity build() {
-            return new CourseEntity(sciencesType, structure, isDayCourse, teacher);
-        }
+    public void addStudent(StudentEntity student) {
+        students.add(student);
+        student.getCourses().add(this);
     }
+    public void removeStudent(StudentEntity student) {
+        students.remove(student);
+        student.getCourses().remove(this);
+    }
+
 }
