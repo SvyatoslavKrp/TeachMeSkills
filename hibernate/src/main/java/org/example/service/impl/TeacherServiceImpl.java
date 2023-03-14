@@ -1,41 +1,38 @@
 package org.example.service.impl;
 
-import lombok.RequiredArgsConstructor;
 import org.example.domain.CourseEntity;
 import org.example.domain.StudentEntity;
 import org.example.domain.TeacherEntity;
+import org.example.service.AbstractSessionService;
 import org.example.service.TeacherService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @Service
-public class TeacherServiceImpl implements TeacherService {
+public class TeacherServiceImpl extends AbstractSessionService implements TeacherService {
 
-    private final SessionFactory sessionFactory;
+    public TeacherServiceImpl(SessionFactory sessionFactory) {
+        super(sessionFactory);
+    }
+
     @Override
     public void save(TeacherEntity teacher) {
 
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+        Session session = openSession();
 
         session.save(teacher);
 
-        transaction.commit();
-        session.close();
+        closeSession(session);
 
     }
 
     @Override
     public TeacherEntity getTeacher(Integer teacherId) {
 
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+        Session session = openSession();
 
         TeacherEntity teacher = session.find(TeacherEntity.class, teacherId);
 
@@ -57,8 +54,7 @@ public class TeacherServiceImpl implements TeacherService {
 //            List<StudentEntity> studentsList = queryForStudents.getResultList();
 //        }
 
-        transaction.commit();
-        session.close();
+        closeSession(session);
 
         System.out.println(teacher);
         for (CourseEntity course : courses) {
@@ -74,8 +70,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public void deleteTeacher(Integer id) {
 
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+        Session session = openSession();
 
         TeacherEntity teacher = session.find(TeacherEntity.class, id);
         if (teacher == null) {
@@ -83,8 +78,7 @@ public class TeacherServiceImpl implements TeacherService {
         }
         session.delete(teacher);
 
-        transaction.commit();
-        session.close();
+        closeSession(session);
 
     }
 }
