@@ -1,36 +1,28 @@
 package org.example.domain;
 
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
 
-@Entity(name = "teachers")
-public class TeacherEntity {
+@Entity(name = "students")
+public class StudentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
+    private int age;
 
-    private Date startTeaching;
-
+    @ManyToMany
     @ToString.Exclude
-    @OneToMany(mappedBy = "teacher", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
     private final List<CourseEntity> courses = new ArrayList<>();
 
-    public void addCourse(CourseEntity course) {
-        courses.add(course);
-        course.setTeacher(this);
-    }
 }
