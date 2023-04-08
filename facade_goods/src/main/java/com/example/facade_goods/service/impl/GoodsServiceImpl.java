@@ -69,9 +69,7 @@ public class GoodsServiceImpl implements GoodsService {
         if (byId.isPresent()) {
 
             GoodsEntity goodsFromDB = byId.get();
-            goodsFromDB.setName(newGoods.getName());
-            goodsFromDB.setDescription(newGoods.getDescription());
-            repository.save(goodsFromDB);
+            mapper.updateGoodsFromDto(newGoods, goodsFromDB);
 
         }
     }

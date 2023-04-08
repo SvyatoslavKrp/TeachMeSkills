@@ -9,24 +9,24 @@ import java.util.List;
 
 @FeignClient(
         name = "goodsClient",
-        url = "http://127.0.0.1:8081/goods/",
+        url = "http://127.0.0.1:8081/",
         configuration = FeignConfiguration.class
 )
 public interface GoodsClient {
 
-    @GetMapping("/{name}")
+    @GetMapping("goods/{name}")
     Goods getGoodsByName(@PathVariable(name = "name") String name);
 
-    @GetMapping
+    @GetMapping("/goods")
     List<Goods> getAllGoods();
 
-    @PostMapping("/save")
+    @PostMapping("goods/save")
     void saveGoods(@RequestBody Goods goods);
 
-    @DeleteMapping("/delete/{name}")
+    @DeleteMapping("goods/delete/{name}")
     void deleteGoodsByName(@PathVariable(name = "name") String name);
 
-    @PutMapping("/update/{id}")
-    void updateGoodsDescriptionById(@PathVariable Integer id, @RequestBody Goods newGoods);
+    @PutMapping("goods/update/{id}")
+    void updateGoodsDescriptionById(@PathVariable(name = "id") Integer id, @RequestBody Goods newGoods);
 
 }
