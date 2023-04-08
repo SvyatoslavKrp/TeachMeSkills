@@ -36,7 +36,7 @@ public class OrderController {
 
     @GetMapping
     @ApiResponses(
-            @ApiResponse(description = "getAllGoods")
+            @ApiResponse(description = "getAllGoods", content = @Content(schema = @Schema(implementation = List.class)))
     )
     public List<Goods> getAllGoods() {
         return service.getAllGoods();

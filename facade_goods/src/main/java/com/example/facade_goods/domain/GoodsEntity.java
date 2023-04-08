@@ -1,10 +1,10 @@
 package com.example.facade_goods.domain;
 
-import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @NoArgsConstructor
 @Data
@@ -16,7 +16,7 @@ public class GoodsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotNull
+    @NotBlank
     private String name;
     private String description;
 
