@@ -15,6 +15,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     private final GoodsClient client;
 
+    //лучше в optional
     @Override
     public Goods getGoodsByName(String name) {
         return client.getGoodsByName(name);
